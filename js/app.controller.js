@@ -104,4 +104,5 @@ function onSearchLoc(ev) {
 
     var searchWords = document.querySelector('input[type=search]').value;
     mapService.searchMap(searchWords)
+        .then(loc => mapService.panTo(loc.lat, loc.lng))
 }

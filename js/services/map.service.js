@@ -60,11 +60,14 @@ function getGmap() {
     return gMap
 }
 
-function searchMap(searchWords){
-    console.log('heheheh');
-
+function searchMap(searchWords) {
+    const searchUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchWords}&key=${API_KEY}`
+    return axios.get(searchUrl)
+        .then(res => res.data)
+        .then(data => data.results[0].geometry.location) //{lat,lng}
+        .catch(() => { throw new Error('couldnt find location') })
 }
 
+// {32.0749831,  34.9120554}
 
-// adresss='israel'
-// url=`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=${API_KEY}`
+//https://maps.googleapis.com/maps/api/geocode/json?address=32.0749831,34.9120554&key=AIzaSyCmdCuUqT27CzFjXShBAtWxPPMsoTIsm4k
