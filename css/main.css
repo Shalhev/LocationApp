@@ -86,3 +86,7 @@ header .logo span {
     grid-area: locations;
     margin: 0 auto;
 }
+
+.copy_text {
+    opacity: 0;
+}
