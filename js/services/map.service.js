@@ -5,7 +5,6 @@ export const mapService = {
     addMarker,
     panTo,
     getGmap,
-    setUserLocation
 }
 
 var gMap;
@@ -58,22 +57,4 @@ function _connectGoogleApi() {
 
 function getGmap() {
     return gMap
-}
-
-function setUserLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(centerMapOnUser)
-    } else {
-        console.log('Geolocation is not supported by this browser.')
-    }
-}
-
-function centerMapOnUser(position) {
-    const center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-    }
-
-    console.log('Centering on', center)
-    gMap.setCenter(center)
 }

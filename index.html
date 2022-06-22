@@ -14,13 +14,11 @@
     <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
     <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
     <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-    <button onclick="onSetUserLocation()" class="btn-user-loc">Your location</button>
 
     <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations: <span class="locs"></span></p>
-
     <div class="locations">
         <table border="1">
+            <thead><th>Id</th><th>Name</th><th>Created At</th><th>Lat/Lng</th><th>Actions</th></thead>
             <tbody></tbody>
         </table>
     </div>
