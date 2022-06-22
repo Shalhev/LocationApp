@@ -5,6 +5,7 @@ export const mapService = {
     addMarker,
     panTo,
     getGmap,
+    searchMap
 }
 
 const API_KEY = 'AIzaSyCmdCuUqT27CzFjXShBAtWxPPMsoTIsm4k';
@@ -57,6 +58,11 @@ function _connectGoogleApi() {
 
 function getGmap() {
     return gMap
+}
+
+function searchMap(searchWords){
+    console.log('heheheh');
+
 }
 
 

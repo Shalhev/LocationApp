@@ -9,6 +9,7 @@ window.onGetUserPos = onGetUserPos;
 window.onGoToLoc = onGoToLoc;
 window.onDeleteLoc = onDeleteLoc;
 window.onSetUserLocation = onSetUserLocation;
+window.onSearchLoc = onSearchLoc;
 
 function onInit() {
     mapService.initMap()
@@ -48,7 +49,7 @@ function renderLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            mapService.panTo(pos.coords.latitude,pos.coords.longitude)
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
@@ -97,6 +98,10 @@ function onSetUserLocation() {
     document.querySelector('.user-pos').innerText = userPos
 }
 
-function onSearchLoc(ev){
+function onSearchLoc(ev) {
     ev.preventDefault()
+    console.log(`searching ${searchWords}...`);
+
+    var searchWords = document.querySelector('input[type=search]').value;
+    mapService.searchMap(searchWords)
 }
