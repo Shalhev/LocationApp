@@ -67,7 +67,3 @@ function searchMap(searchWords) {
         .then(data => data.results[0].geometry.location) //{lat,lng}
         .catch(() => { throw new Error('couldnt find location') })
 }
-
-// {32.0749831,  34.9120554}
-
-//https://maps.googleapis.com/maps/api/geocode/json?address=32.0749831,34.9120554&key=AIzaSyCmdCuUqT27CzFjXShBAtWxPPMsoTIsm4k

@@ -10,6 +10,7 @@ window.onGoToLoc = onGoToLoc;
 window.onDeleteLoc = onDeleteLoc;
 window.onSetUserLocation = onSetUserLocation;
 window.onSearchLoc = onSearchLoc;
+window.onCopyLoc = onCopyLoc;
 
 function onInit() {
     mapService.initMap()
@@ -18,6 +19,7 @@ function onInit() {
                 onAddMarker(e.latLng)
             })
             console.log('Map is ready');
+            renderFilterByQueryStringParams()
             renderLocs()
         })
         .catch(() => console.log('Error: cannot init map'));
@@ -34,8 +36,8 @@ function getPosition() {
 function onAddMarker(pos) {
     console.log('Adding a marker');
     mapService.addMarker(pos)
+    renderUrlAdress(pos)
     renderLocs()
-    // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
 }
 
 function renderLocs() {
@@ -105,4 +107,35 @@ function onSearchLoc(ev) {
     var searchWords = document.querySelector('input[type=search]').value;
     mapService.searchMap(searchWords)
         .then(loc => mapService.panTo(loc.lat, loc.lng))
+}
+
+function renderUrlAdress(pos) {
+    const queryStringParams = `?lat=${pos.lat()}&lng=${pos.lng()}`
+    const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+function onCopyLoc() {
+    const url = window.location.href;
+    const copy_text_val = document.querySelector('.copy_text');
+    copy_text_val.value = url;
+
+    copy_text_val.select();
+    document.execCommand("copy");
+    console.log(copy_text_val.value);
+}
+
+
+function renderFilterByQueryStringParams() {
+    const queryStringParams = new URLSearchParams(window.location.search)
+
+
+    const loc = {
+        lat: +queryStringParams.get('lat'),
+        lng: +queryStringParams.get('lng')
+    }
+
+    if (!loc.lat && !lac.lng) return
+
+    mapService.panTo(loc.lat, loc.lng)
 }
