@@ -3,7 +3,9 @@ import { locService } from './loc.service.js';
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getGmap,
+    setUserLocation
 }
 
 var gMap;
@@ -20,10 +22,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
-            gMap.addListener('click', (e) => {
-                addMarker(e.latLng)
-                locService.saveLoc(e.latLng)
-            })
         })
 }
 
@@ -33,6 +31,7 @@ function addMarker(loc) {
         map: gMap,
         title: 'Hello World!'
     });
+    locService.saveLoc(loc)
     return marker;
 }
 
@@ -55,4 +54,26 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getGmap() {
+    return gMap
+}
+
+function setUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(centerMapOnUser)
+    } else {
+        console.log('Geolocation is not supported by this browser.')
+    }
+}
+
+function centerMapOnUser(position) {
+    const center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+    }
+
+    console.log('Centering on', center)
+    gMap.setCenter(center)
 }

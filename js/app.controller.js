@@ -4,13 +4,20 @@ import { mapService } from './services/map.service.js'
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
+window.renderLocs = renderLocs;
 window.onGetUserPos = onGetUserPos;
+window.onGoToLoc = onGoToLoc;
+window.onDeleteLoc = onDeleteLoc;
+window.onSetUserLocation = onSetUserLocation;
 
 function onInit() {
     mapService.initMap()
         .then(() => {
+            mapService.getGmap().addListener('click', (e) => {
+                onAddMarker(e.latLng)
+            })
             console.log('Map is ready');
+            renderLocs()
         })
         .catch(() => console.log('Error: cannot init map'));
 }
@@ -25,14 +32,16 @@ function getPosition() {
 
 function onAddMarker(pos) {
     console.log('Adding a marker');
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    mapService.addMarker(pos)
+    renderLocs()
+    // mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
 }
 
-function onGetLocs() {
+function renderLocs() {
     locService.getLocs()
         .then(locs => {
             console.log('Locations:', locs)
-            renderLocs(locs)
+            renderTable()
         })
 }
 
@@ -52,14 +61,36 @@ function onPanTo() {
     mapService.panTo(35.6895, 139.6917);
 }
 
-function renderLocs(locs) {
-    const strHtmls = locs.map(loc =>
-        `<tr>
+function renderTable() {
+    locService.getLocs()
+        .then(locs => {
+            const strHtmls = locs.map(loc =>
+                `<tr>
             <td>${loc.id}</td>
             <td>${loc.name}</td>
             <td>${loc.createdAt}</td>
             <td>${loc.lat}, ${loc.lng}</td>
+            <td>
+            <button onclick="onGoToLoc(${loc.lat},${loc.lng})">Go</button>
+            <button onclick="onDeleteLoc('${loc.id}')">Delete</button>
+            </td>
         </tr>`
-    )
-    document.querySelector('.locations tbody').innerHTML = strHtmls.join('')
+            )
+            document.querySelector('.locations tbody').innerHTML = strHtmls.join('')
+        })
+        .catch(() => { throw new Error('couldnt render locations') })
+}
+
+function onGoToLoc(lat, lng) {
+    mapService.panTo(lat, lng)
+}
+
+function onDeleteLoc(id) {
+    locService.deleteLoc(id)
+    renderTable()
+}
+
+function onSetUserLocation() {
+    console.log('setting user location...')
+    mapService.setUserLocation()
 }
