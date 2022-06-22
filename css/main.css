@@ -1,16 +1,31 @@
-*{
+* {
     box-sizing: border-box;
 }
-body{
+
+body {
     margin: 0;
     background-color: #1F4690;
     font-family: Arial, Helvetica, sans-serif;
+    color: whitesmoke;
 }
-header{
+
+button {
+    padding: 10px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #FFA500;
+}
+
+input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 0;
+}
+
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-header h1 .logo{
 
-}
+header h1 .logo {}
