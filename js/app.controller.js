@@ -96,3 +96,7 @@ function onSetUserLocation() {
     const userPos = mapService.setUserLocation()
     document.querySelector('.user-pos').innerText = userPos
 }
+
+function onSearchLoc(ev){
+    ev.preventDefault()
+}

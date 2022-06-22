@@ -7,6 +7,7 @@ export const mapService = {
     getGmap,
 }
 
+const API_KEY = 'AIzaSyCmdCuUqT27CzFjXShBAtWxPPMsoTIsm4k';
 var gMap;
 
 
@@ -43,7 +44,6 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyCmdCuUqT27CzFjXShBAtWxPPMsoTIsm4k'; //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
@@ -58,3 +58,7 @@ function _connectGoogleApi() {
 function getGmap() {
     return gMap
 }
+
+
+// adresss='israel'
+// url=`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=${API_KEY}`
