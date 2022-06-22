@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+
 }
 
 body {
@@ -7,6 +8,15 @@ body {
     background-color: #1F4690;
     font-family: Arial, Helvetica, sans-serif;
     color: whitesmoke;
+}
+
+.main-layout {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+p {
+    margin: 0;
 }
 
 button {
@@ -22,10 +32,57 @@ input {
     border: 0;
 }
 
-header {
+input:focus {
+    outline: none;
+}
+
+form {
+    background-color: white;
+    border-radius: 4px;
+}
+
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header h1 .logo {}
+header .logo {
+    color: #FFA500;
+}
+
+header .logo span {
+    color: white;
+}
+
+.loc-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+.content-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 400px auto;
+    grid-template-areas:
+        "weather map"
+        "locations locations ";
+    row-gap: 15px;
+}
+
+.weather {
+    grid-area: weather;
+    background-color: #3A5BA0;
+}
+
+#map {
+    grid-area: map;
+}
+
+.locations {
+    grid-area: locations;
+    margin: 0 auto;
+}

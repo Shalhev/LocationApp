@@ -10,32 +10,44 @@
 
 <body>
     <header>
-        <h1 class="logo1">TravelTip</h1>
-        <form onSubmit="onSearchLoc(event)">
-            <input type="search" placeholder="Search maps...">
-            <button>Search</button>
-        </form>
+        <div class="header-container main-layout">
+            <h1 class="logo">Travel<span>Tip</span></h1>
+            <form onSubmit="onSearchLoc(event)">
+                <input type="search" placeholder="Search maps...">
+                <button>Search</button>
+            </form>
+        </div>
     </header>
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-    <button onclick="onCopyLoc()" class="btn-copy">Copy Location</button>
+    <nav class="loc-nav main-layout">
+        <p class="your-loction">Your Location: <span class="user-pos"></span></p>
+        <div class="nav-btns">
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onCopyLoc()" class="btn-copy">Copy Location</button>
+        </div>
+    </nav>
+    <main>
 
-    <p>You are at: <span class="user-pos"></span></p>
-    <div class="locations">
-        <table border="1">
-            <thead>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Created At</th>
-                <th>Lat/Lng</th>
-                <th>Actions</th>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+        <div class="content-container main-layout">
+            <div class="weather">weather</div>
+            <div id="map" style="width: 100%; height: 400px;"></div>
+            <div class="locations">
+                <table border="1">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                        <th>Lat/Lng</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
+    </main>
 
     <script src="lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
 </body>
+
 </html>
