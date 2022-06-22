@@ -23,7 +23,7 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function onAddMarker(pos) {
     console.log('Adding a marker');
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
 }
@@ -32,7 +32,7 @@ function onGetLocs() {
     locService.getLocs()
         .then(locs => {
             console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs)
+            renderLocs(locs)
         })
 }
 
@@ -50,4 +50,16 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
+}
+
+function renderLocs(locs) {
+    const strHtmls = locs.map(loc =>
+        `<tr>
+            <td>${loc.id}</td>
+            <td>${loc.name}</td>
+            <td>${loc.createdAt}</td>
+            <td>${loc.lat}, ${loc.lng}</td>
+        </tr>`
+    )
+    document.querySelector('.locations tbody').innerHTML = strHtmls.join('')
 }
